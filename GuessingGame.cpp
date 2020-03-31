@@ -84,19 +84,21 @@ void playGame(){
             std::cout << "User's Score: " << usersScore << std::endl;
 
             std::cout << "Want to play again(y/n): ";
-            char* playAgainOpt;
+            std::string playAgainOpt;
             std::cin>> playAgainOpt;
-            switch (playAgainOpt)
+            if(playAgainOpt == "Y" ||"y")
+                playGame();
+            else if(playAgainOpt == "N" || "n")
             {
-            case 'Y'||'y':
-                playGame()
-                break;
-            case 'N' || 'n':
                 saveScore();
-                system("exit");
-            default:
-                break;
             }
+            else
+            {
+                std::cout<<"Invalid Option" << std::endl;
+                main();
+            }
+            
+
             //resetting users score after correct guess so that the loop run's again
             usersGuess = 0;
             //generating new random number after user guessed right
