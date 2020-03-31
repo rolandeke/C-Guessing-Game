@@ -16,7 +16,13 @@ void saveScore(int& score);
 
 int main(){
 
-   
+
+    int s = 168;
+
+    saveScore(s);
+
+    return 0;
+ 
     std::cout << "Welcome to console guessing game\n\nPress:\n1.Play\n2.View High Score\n";
     int userOption;
     std::cin >> userOption;
@@ -86,11 +92,12 @@ void playGame(){
             std::cout << "Want to play again(y/n): ";
             std::string playAgainOpt;
             std::cin>> playAgainOpt;
-            if(playAgainOpt == "Y" ||"y")
+            if(playAgainOpt == "Y" || playAgainOpt == "y")
                 playGame();
-            else if(playAgainOpt == "N" || "n")
+            else if(playAgainOpt == "N" || playAgainOpt == "n")
             {
-                saveScore();
+                saveScore(usersScore);
+                break;
             }
             else
             {
@@ -143,7 +150,31 @@ int viewHighScore(){
 }
 
 void saveScore(int& score){
-    
-   
-    
+
+    std::fstream myFile;
+    myFile.open("Scores.txt", std::ios::app);
+    std::string prevScore = "";
+
+    if (myFile.is_open())
+    {
+        std::cout<< "Working" << std::endl;
+        std:: cout << score << " was passed in." << std::endl;
+        myFile >> prevScore; 
+        if(prevScore == ""){
+            myFile << score << std::endl;
+            std::cout << "New Scored Saved" << std::endl;
+        }else{
+            int sc = std::stoi(prevScore);
+            if(sc >= score){
+
+            }else{
+                myFile << score << std::endl;
+                std::cout << "Score Saved. Your old score wasd " << sc << " and your new score is " << score << std::endl;
+            }
+        }
+    }
+    else
+    {
+        std::cout<<"There was an error opening the file" << std::endl;
+    }
 }
